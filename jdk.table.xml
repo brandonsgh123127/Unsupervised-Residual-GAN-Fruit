@@ -1,0 +1,283 @@
+<application>
+  <component name="ProjectJdkTable">
+    <jdk version="2">
+      <name value="Python 3.6 (untitled)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\untitled\venv\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/untitled/venv" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/untitled/venv/Lib/site-packages" type="simple" />
+            <root url="jar://$USER_HOME$/PycharmProjects/untitled/venv/Lib/site-packages/setuptools-40.8.0-py3.6.egg!/" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/untitled/venv/Lib/site-packages/pip-19.0.3-py3.6.egg" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/1687550953" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/PycharmProjects/untitled" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6 (PYTHON)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\PYTHON\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/PYTHON" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/PYTHON/Lib/site-packages" type="simple" />
+            <root url="file://C:/Python3.6/Lib/site-packages" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/-1258468634" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6 (PageRank)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\PageRank\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/PageRank/Lib/site-packages" type="simple" />
+            <root url="jar://$USER_HOME$/PycharmProjects/PageRank/Lib/site-packages/setuptools-40.8.0-py3.6.egg!/" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/PageRank/Lib/site-packages/pip-19.0.3-py3.6.egg" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/-527856921" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/PycharmProjects/PageRank" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Python3.6\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://C:/Python3.6/Lib/site-packages" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/652478984" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 2.7 (StockData-master)" />
+      <type value="Python SDK" />
+      <homePath value="C:\Users\spada\StockData-master\python\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite" />
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/StockData-master" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6 (CaesarCipher)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\CaesarCipher\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/CaesarCipher/Lib/site-packages" type="simple" />
+            <root url="jar://$USER_HOME$/PycharmProjects/CaesarCipher/Lib/site-packages/setuptools-40.8.0-py3.6.egg!/" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/CaesarCipher/Lib/site-packages/pip-19.0.3-py3.6.egg" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/-545210374" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/PycharmProjects/CaesarCipher" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6 (Spada_Tensorflow_Demo)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\Spada_Tensorflow_Demo\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/Spada_Tensorflow_Demo/Lib/site-packages" type="simple" />
+            <root url="jar://$USER_HOME$/PycharmProjects/Spada_Tensorflow_Demo/Lib/site-packages/setuptools-40.8.0-py3.6.egg!/" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/Spada_Tensorflow_Demo/Lib/site-packages/pip-19.0.3-py3.6.egg" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/-1176158419" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/PycharmProjects/Spada_Tensorflow_Demo" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 2.7 (StockData-master) (2)" />
+      <type value="Python SDK" />
+      <homePath value="C:\Users\spada\Desktop\StockData-master\python\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite" />
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/Desktop/StockData-master" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6 (StockData)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\StockData\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/StockData/Lib/site-packages" type="simple" />
+            <root url="jar://$USER_HOME$/PycharmProjects/StockData/Lib/site-packages/setuptools-40.8.0-py3.6.egg!/" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/StockData/Lib/site-packages/pip-19.0.3-py3.6.egg" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/1202474858" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/PycharmProjects/StockData" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6 (Semi-Supervised-Learning)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\Semi-Supervised-Learning\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/Semi-Supervised-Learning/Lib/site-packages" type="simple" />
+            <root url="jar://$USER_HOME$/PycharmProjects/Semi-Supervised-Learning/Lib/site-packages/setuptools-40.8.0-py3.6.egg!/" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/Semi-Supervised-Learning/Lib/site-packages/pip-19.0.3-py3.6.egg" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/-27080358" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/PycharmProjects/Semi-Supervised-Learning" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6 (Semi-Supervised-Learning1)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.8" />
+      <homePath value="C:\Users\spada\PycharmProjects\Semi-Supervised-Learning1\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file://C:/Python3.6/DLLs" type="simple" />
+            <root url="file://C:/Python3.6/Lib" type="simple" />
+            <root url="file://C:/Python3.6" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/Semi-Supervised-Learning1/Lib/site-packages" type="simple" />
+            <root url="jar://$USER_HOME$/PycharmProjects/Semi-Supervised-Learning1/Lib/site-packages/setuptools-40.8.0-py3.6.egg!/" type="simple" />
+            <root url="file://$USER_HOME$/PycharmProjects/Semi-Supervised-Learning1/Lib/site-packages/pip-19.0.3-py3.6.egg" type="simple" />
+            <root url="file://$USER_HOME$/.PyCharm2019.2/system/python_stubs/-1952277695" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/PycharmProjects/Semi-Supervised-Learning1" />
+    </jdk>
+  </component>
+</application>
