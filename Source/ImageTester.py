@@ -1,6 +1,6 @@
-import Source.ImageClassification as IM
+import Source.DatasetRetrieval as DataR
 import Source.ImageML as ML
 
 def main():
-    ImageProcess = ML()
+    ImageProcess = DataR()
     ImageProcess.retrieveImages()
