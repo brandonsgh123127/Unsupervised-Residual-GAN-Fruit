@@ -2,33 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec99bacf-d449-453e-8843-c8580f664dc2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/Discriminator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Semi-Supervised-Learning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Semi-Supervised-Learning.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ImageClassification.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DatasetRetrieval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ImageTester.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ImageTester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DatasetRetrieval.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DatasetRetrieval.py" afterDir="false" />
     </list>
+    <list id="8ecf1c65-2e2e-4903-aced-688db18f0237" name="Apply: " comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1SZKyki24qzBL4ebmXJRmg7AOV5" />
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Source" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -46,7 +37,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.ImageTester">
-    <configuration name="DatasetRetrieval" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ImageTester" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Semi-Supervised-Learning" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -59,7 +50,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/DatasetRetrieval.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/ImageTester.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -68,14 +59,14 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Default" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="ML" type="PythonConfigurationType" factoryName="Python">
       <module name="Semi-Supervised-Learning" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\spada\OneDrive\Documents\Python Projects\CondaInterpreter\python.exe" />
+      <option name="SDK_HOME" value="E:\Users\i-pod\Desktop\Projects_CS\Python\Conda_Env\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -90,37 +81,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ImageTester" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Semi-Supervised-Learning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\spada\OneDrive\Documents\Python Projects\CondaInterpreter1\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/ImageTester.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.Default" />
+      <item itemvalue="Python.ML" />
       <item itemvalue="Python.ImageTester" />
-      <item itemvalue="Python.DatasetRetrieval" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.ImageTester" />
-        <item itemvalue="Python.DatasetRetrieval" />
       </list>
     </recent_temporary>
   </component>
@@ -130,13 +97,13 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ec99bacf-d449-453e-8843-c8580f664dc2" name="Default Changelist" comment="" />
+      <changelist id="8ecf1c65-2e2e-4903-aced-688db18f0237" name="Apply: " comment="" />
       <created>1571765934576</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571765934576</updated>
       <workItem from="1571765935722" duration="164000" />
-      <workItem from="1571767502128" duration="2662000" />
-      <workItem from="1571933434002" duration="3838000" />
+      <workItem from="1571969830785" duration="4930000" />
     </task>
     <servers />
   </component>
@@ -157,9 +124,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ImageClassification.coverage" NAME="ImageClassification Coverage Results" MODIFIED="1571767535942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
-    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$Default.coverage" NAME="Default Coverage Results" MODIFIED="1571937175170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ImageTester.coverage" NAME="ImageTester Coverage Results" MODIFIED="1571937278983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
-    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$DatasetRetrieval.coverage" NAME="DatasetRetrieval Coverage Results" MODIFIED="1571936953787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
+    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ML.coverage" NAME="ML Coverage Results" MODIFIED="1571969971697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ImageTester.coverage" NAME="ImageTester Coverage Results" MODIFIED="1571973795208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
   </component>
 </project>
