@@ -49,7 +49,7 @@ class DatasetRetrieval:
         #Sample data for user to see what machine looks at
         for item in range(0,5):
             """                 PLEASE CHANGE LINK TO LOCATION OF FRUIT                            """
-            img = cv2.imread('C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s' % ' '.join(
+            img = cv2.imread('E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
                 map(str, self.imArray[item])))
             print(self.imArray[item])
             """
