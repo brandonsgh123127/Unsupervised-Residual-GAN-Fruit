@@ -2,30 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec99bacf-d449-453e-8843-c8580f664dc2" name="Default Changelist" comment="-PIXELATES IMAGES!!!">
+      <change beforePath="$PROJECT_DIR$/.idea/Semi-Supervised-Learning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Semi-Supervised-Learning.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DatasetRetrieval.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DatasetRetrieval.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Discriminator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Discriminator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/EDGES_Avocado ripe_r_320_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/EDGES_Cactus fruit_r_102_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/EDGES_Potato White_141_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/EDGES_Potato White_r2_115_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/EDGES_Rambutan_r_301_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/ORIG_Avocado ripe_r_320_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/ORIG_Cactus fruit_r_102_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/ORIG_Potato White_141_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/ORIG_Potato White_r2_115_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/ORIG_Rambutan_r_301_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIXEDGE_Avocado ripe_r_320_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIXEDGE_Cactus fruit_r_102_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIXEDGE_Potato White_141_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIXEDGE_Potato White_r2_115_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIXEDGE_Rambutan_r_301_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIX_Avocado ripe_r_320_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIX_Cactus fruit_r_102_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIX_Potato White_141_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIX_Potato White_r2_115_100.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestLabeledData/PIX_Rambutan_r_301_100.jpg" beforeDir="false" />
     </list>
     <list id="8ecf1c65-2e2e-4903-aced-688db18f0237" name="Apply: " comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,6 +17,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1SZKyki24qzBL4ebmXJRmg7AOV5" />
@@ -152,6 +139,7 @@
       <workItem from="1572147246938" duration="246000" />
       <workItem from="1572147804874" duration="420000" />
       <workItem from="1572192329136" duration="1624000" />
+      <workItem from="1572206833263" duration="5014000" />
     </task>
     <task id="LOCAL-00001" summary="-PIXELATES IMAGES!!!">
       <created>1572054507957</created>
@@ -191,12 +179,17 @@
           <line>163</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Source/DatasetRetrieval.py</url>
+          <line>90</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$cgan.coverage" NAME="cgan Coverage Results" MODIFIED="1572058807228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../CS368/Keras-GAN-master/cgan" />
     <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ML.coverage" NAME="ML Coverage Results" MODIFIED="1571969971697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ImageTester.coverage" NAME="ImageTester Coverage Results" MODIFIED="1572194074580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
+    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ImageTester.coverage" NAME="ImageTester Coverage Results" MODIFIED="1572213400120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
   </component>
 </project>
