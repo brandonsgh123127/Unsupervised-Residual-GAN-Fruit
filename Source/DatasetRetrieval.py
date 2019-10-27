@@ -20,7 +20,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 250
+        self.testSize = 3000
         self.imArray=np.zeros((self.testSize,1))
         self.imArray=self.imArray.astype(str)
         self.compArray=np.zeros(())
@@ -39,15 +39,13 @@ class DatasetRetrieval:
             self.drawImageSample()
 
 
-    #Using Kirsch Compass kernel
-    def convImageEdges(self):
-        print("To be implemented")
-
     ################################
     # Draw using matplotlib of 2 of same images
     # Will be used for comparisons....
     ################################
     def drawImageSample(self):
+        self.clearFolder()  # Calls function that clears folder for new data
+
         #Sample data for user to see what machine looks at
         for item in range(0,5):
             """                 PLEASE CHANGE LINK TO LOCATION OF FRUIT                            """
@@ -59,12 +57,30 @@ class DatasetRetrieval:
             """
             width, height, _ = img.shape
             edges = cv2.Canny(img, width, height)  # CREATES AN EDGE DETECTION IMAGE
-            w, h = (16, 16)  # New width/height of image...
-            temp = cv2.resize(img, (w, h), interpolation=cv2.INTER_LINEAR)
-            temp2 = cv2.Canny(temp, w, h)
-            output = cv2.resize(temp, (width, height), interpolation=cv2.INTER_NEAREST)
+            w, h = (12, 12)  # New width/height of image...
 
-            # cv2.imshow('image',output)
+            #Creates pixelated photos using Inter-Linear interpolation
+            temp = cv2.resize(img, (w, h), interpolation=cv2.INTER_BITS)
+            output = cv2.resize(temp, (width, height), interpolation=cv2.INTER_AREA)
+            temp2 = cv2.Canny(temp, w, h)
+
+            """
+            # We need to save this data now to testLabeledData folder for use in Semi-Supervised Learning
+            """
+            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\ORIG_%s' % ' '.join(
+                map(str, self.imArray[item])),img)
+            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\EDGES_%s' % ' '.join(
+                map(str, self.imArray[item])),edges)
+            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIXEDGE_%s' % ' '.join(
+                map(str, self.imArray[item])),temp2)
+            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIX_%s' % ' '.join(
+                map(str, self.imArray[item])),output)
+
+            """
+            
+            Matplotlib plot data for user to see
+            
+            """
             fig = plt.figure(figsize=(12,12))
             fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
             plt.imshow(output, )
@@ -74,6 +90,16 @@ class DatasetRetrieval:
             plt.show()
             #cv2.waitKey(0)
 
+    #clears folder where test data will go...
+    def clearFolder(self):
+        # Iterates through files in test labeled data
+        for f in os.listdir(os.getcwd()[:-7]+'\\TestLabeledData\\'):
+            file_path = os.path.join(os.getcwd()[:-7]+'\\TestLabeledData\\', f)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+            except Exception as e:
+                print(e)
     """
     Attempt to upscale an image from edge pixelation
     """
