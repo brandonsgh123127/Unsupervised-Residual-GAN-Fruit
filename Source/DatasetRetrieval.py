@@ -21,9 +21,12 @@ class DatasetRetrieval:
     # Used to initialize the class/Object when created
     def __init__(self):
         self.testSize = 3000
-        self.imArray=np.zeros((self.testSize,1))
-        self.imArray=self.imArray.astype(str)
         self.compArray=np.zeros(())
+        self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
+        self.imArray=np.zeros((self.testSize,1))
+        self.imArray=self.imArray.astype(str) # STORES 100 x 100 IMAGES
+        self.edgeArray= np.zeros(()) # STORES 100 x 100 IMAGES
+        self.edgePixArray= np.zeros(()) # STORES 12x12 IMAGES
 
     """
     Used to retrieve a random set of images in dataset...
@@ -49,7 +52,7 @@ class DatasetRetrieval:
         #Sample data for user to see what machine looks at
         for item in range(0,5):
             """                 PLEASE CHANGE LINK TO LOCATION OF FRUIT                            """
-            img = cv2.imread('E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
+            img = cv2.imread('C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
                 map(str, self.imArray[item])))
             print(self.imArray[item])
             """
@@ -83,10 +86,12 @@ class DatasetRetrieval:
             """
             fig = plt.figure(figsize=(12,12))
             fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
-            plt.imshow(output, )
+            plt.imshow(output, ), self.addPixArray(output)
             fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
             fig.add_subplot(2, 2, 3).set(xlabel='pix edge'), plt.imshow(temp2,cmap='gray' )
+            self.addEdgePixArray(temp2)
             fig.add_subplot(2, 2, 4).set(xlabel='orig edge'), plt.imshow(edges,cmap='gray' )
+            self.addEdgeArray(edges)
             plt.show()
             #cv2.waitKey(0)
 
@@ -105,3 +110,15 @@ class DatasetRetrieval:
     """
     def upScale(self):
         print("To be implemented...")
+
+    def getIMArray(self):
+        return self.imArray
+    def addPixArray(self,image):
+        np.append(self.pixArray,image)
+        print("Added pixel photo")
+    def addEdgePixArray(self,image):
+        np.append(self.edgePixArray,image)
+        print("Added edge pixel photo")
+    def addEdgeArray(self,image):
+        np.append(self.edgeArray,image)
+        print("Added edge photo")
