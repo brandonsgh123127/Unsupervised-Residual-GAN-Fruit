@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-import sklearn
-import skimage
 import Source.Generator as generator
 import os
 import cv2 #USED FOR EDGE DETECTION IN IMAGES
@@ -42,7 +40,7 @@ class DatasetRetrieval:
             content = f.readlines()
             # Retrieve random number of objects in dataset to train model...
             for item in range(0,self.testSize):
-                rand = np.random.randint(0,high=28590)
+                rand = np.random.randint(0,high=28589)
                 self.imArray[item]= str(content[rand][:-1])  #imArray contains full quality image set locations
             self.drawImageSample()
 
@@ -54,9 +52,9 @@ class DatasetRetrieval:
     def drawImageSample(self):
         self.clearFolder()  # Calls function that clears folder for new data
         #Sample data for user to see what machine looks at
-        for item in range(0,5):
+        for item in range(0,10):
             """                 PLEASE CHANGE LINK TO LOCATION OF FRUIT                            """
-            img = cv2.imread('E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
+            img = cv2.imread('C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
                 map(str, self.imArray[item])))
             print(self.imArray[item])
             """
@@ -83,21 +81,20 @@ class DatasetRetrieval:
             """
             Matplotlib plot data for user to see
             """
-            fig = plt.figure(figsize=(12,12))
-            fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
-            plt.imshow(output, )
+            #fig = plt.figure(figsize=(12,12))
+            #fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
+            #plt.imshow(output, )
             self.addPixArray(output)
-            fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
+           # fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
             self.addOrigArray(img)
-            print(type(img))
-            fig.add_subplot(2, 2, 3).set(xlabel='pix edge'), plt.imshow(temp2,cmap='gray' )
+            #fig.add_subplot(2, 2, 3).set(xlabel='pix edge'), plt.imshow(temp2,cmap='gray' )
             self.addEdgePixArray(temp2)
-            fig.add_subplot(2, 2, 4).set(xlabel='orig edge'), plt.imshow(edges,cmap='gray' )
+            #fig.add_subplot(2, 2, 4).set(xlabel='orig edge'), plt.imshow(edges,cmap='gray' )
             self.addEdgeArray(edges)
-            plt.show()
+            #plt.show()
             #cv2.waitKey(0)
-            print(self.edgeArray.size)
-        model = generator
+            #print(self.edgeArray.size)
+        #model = generator
     # clears folder where test data will go...
     def clearFolder(self):
         # Iterates through files in test labeled data

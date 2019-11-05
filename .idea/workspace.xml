@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DatasetRetrieval.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DatasetRetrieval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Discriminator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Discriminator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Generator.py" afterDir="false" />
     </list>
     <list id="8ecf1c65-2e2e-4903-aced-688db18f0237" name="Apply: " comment="" />
@@ -15,6 +14,20 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -51,9 +64,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\spada\OneDrive\Documents\Python Projects\CondaInterpreter\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -73,7 +86,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="E:\Users\i-pod\Desktop\Projects_CS\Python\Conda_Env\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\spada\OneDrive\Documents\Python Projects\CondaInterpreter\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -88,37 +101,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="cgan" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Semi-Supervised-Learning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../CS368/Keras-GAN-master/cgan" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../CS368/Keras-GAN-master/cgan/cgan.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.ML" />
       <item itemvalue="Python.ImageTester" />
-      <item itemvalue="Python.cgan" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.ImageTester" />
-        <item itemvalue="Python.cgan" />
       </list>
     </recent_temporary>
   </component>
@@ -140,6 +129,11 @@
       <workItem from="1572147804874" duration="420000" />
       <workItem from="1572192329136" duration="1624000" />
       <workItem from="1572206833263" duration="5014000" />
+      <workItem from="1572280966032" duration="5966000" />
+      <workItem from="1572303452518" duration="7441000" />
+      <workItem from="1572538570345" duration="2113000" />
+      <workItem from="1572551784266" duration="1418000" />
+      <workItem from="1572904426101" duration="1963000" />
     </task>
     <task id="LOCAL-00001" summary="-PIXELATES IMAGES!!!">
       <created>1572054507957</created>
@@ -179,17 +173,14 @@
           <line>163</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Source/DatasetRetrieval.py</url>
-          <line>90</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$cgan.coverage" NAME="cgan Coverage Results" MODIFIED="1572058807228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../CS368/Keras-GAN-master/cgan" />
     <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ML.coverage" NAME="ML Coverage Results" MODIFIED="1571969971697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ImageTester.coverage" NAME="ImageTester Coverage Results" MODIFIED="1572213400120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
+    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$ImageTester.coverage" NAME="ImageTester Coverage Results" MODIFIED="1572540395189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Source" />
+    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$minDistance.coverage" NAME="minDistance Coverage Results" MODIFIED="1572352379164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/Temp/Rar$DIa9872.21197" />
+    <SUITE FILE_PATH="coverage/Semi_Supervised_Learning$minDistance__1_.coverage" NAME="minDistance (1) Coverage Results" MODIFIED="1572355134758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/Temp/Rar$DIa24740.45748" />
   </component>
 </project>
