@@ -1005,7 +1005,6 @@ Apple Red Delicious_r_258_100.jpg
 Apple Red Delicious_r_265_100.jpg
 Apple Red Delicious_r_27_100.jpg
 Apple Red Delicious_r_297_100.jpg
-Apple Red Delicious_r_305_100.jpg
 Apple Red Delicious_r_326_100.jpg
 Apple Red Delicious_r_38_100.jpg
 Apple Red Delicious_r_47_100.jpg
@@ -8174,7 +8173,6 @@ Melon Piel de Sapo_r2_2_100.jpg
 Melon Piel de Sapo_r2_304_100.jpg
 Melon Piel de Sapo_r2_309_100.jpg
 Melon Piel de Sapo_r2_314_100.jpg
-Melon Piel de Sapo_r2_318_100.jpg
 Melon Piel de Sapo_r2_323_100.jpg
 Melon Piel de Sapo_r2_327_100.jpg
 Melon Piel de Sapo_r2_36_100.jpg
