@@ -22,7 +22,8 @@ class Generator:
         self.NUM_CLASSES = 10
         self.BATCH_SIZE = 128
         self.EPOCHS = 5
-        m_1 = Input
+        m_1 = Input(shape=(12,12,3))
+        m_1= Dense(10,input_dim=12)
     # A CONVOLUTION ALLOWS FOR 'HIDDEN LAYERS' TO BE PROCESSED
     # HIDDEN LAYERS ALLOW FOR CLASSIFICATION- PRODUCTION OF IMAGE
     """

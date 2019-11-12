@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from keras.preprocessing.image import img_to_array
+
 import Source.Generator as generator
 import os
 import cv2 #USED FOR EDGE DETECTION IN IMAGES
@@ -40,21 +42,23 @@ class DatasetRetrieval:
             content = f.readlines()
             # Retrieve random number of objects in dataset to train model...
             for item in range(0,self.testSize):
-                rand = np.random.randint(0,high=28589)
+                rand = np.random.randint(0,high=28587)
                 self.imArray[item]= str(content[rand][:-1])  #imArray contains full quality image set locations
-            self.drawImageSample()
+            self.drawImageSample(100,'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images')
 
 
     ################################
     # Draw using matplotlib of 2 of same images
     # Will be used for comparisons....
     ################################
-    def drawImageSample(self):
+    def drawImageSample(self,sample_size,location):
         self.clearFolder()  # Calls function that clears folder for new data
+        src_list, tar_list = list(), list()
         #Sample data for user to see what machine looks at
-        for item in range(0,10):
+        for item in range(0,sample_size):
+
             """                 PLEASE CHANGE LINK TO LOCATION OF FRUIT                            """
-            img = cv2.imread('C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
+            img = cv2.imread(location + '\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
                 map(str, self.imArray[item])))
             print(self.imArray[item])
             """
@@ -70,14 +74,14 @@ class DatasetRetrieval:
             """
             # We need to save this data now to testLabeledData folder for use in Semi-Supervised Learning
             """
-            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\ORIG_%s' % ' '.join(
-                map(str, self.imArray[item])),img)
-            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\EDGES_%s' % ' '.join(
-                map(str, self.imArray[item])),edges)
-            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIXEDGE_%s' % ' '.join(
-                map(str, self.imArray[item])),temp2)
-            cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIX_%s' % ' '.join(
-                map(str, self.imArray[item])),output)
+           # cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\ORIG_%s' % ' '.join(
+            #    map(str, self.imArray[item])),img)
+            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\EDGES_%s' % ' '.join(
+            #    map(str, self.imArray[item])),edges)
+            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIXEDGE_%s' % ' '.join(
+            #    map(str, self.imArray[item])),temp2)
+            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIX_%s' % ' '.join(
+           #     map(str, self.imArray[item])),output)
             """
             Matplotlib plot data for user to see
             """
@@ -85,16 +89,32 @@ class DatasetRetrieval:
             #fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
             #plt.imshow(output, )
             self.addPixArray(output)
-           # fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
+            # fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
             self.addOrigArray(img)
+            self.origData = img_to_array(img)
+            self.pixData = img_to_array(output)
             #fig.add_subplot(2, 2, 3).set(xlabel='pix edge'), plt.imshow(temp2,cmap='gray' )
-            self.addEdgePixArray(temp2)
+            #self.addEdgePixArray(temp2)
             #fig.add_subplot(2, 2, 4).set(xlabel='orig edge'), plt.imshow(edges,cmap='gray' )
-            self.addEdgeArray(edges)
+            #self.addEdgeArray(edges)
+            orig_img, pix_img = self.origData[:, :sample_size], self.pixData[:, :sample_size]
+            src_list.append(orig_img)
+            tar_list.append(pix_img)
             #plt.show()
             #cv2.waitKey(0)
             #print(self.edgeArray.size)
-        #model = generator
+        """
+        In order to use for 2 variables, save data to numpy file
+        """
+        [self.src_images,self.tar_images] = [np.asarray(src_list), np.asarray(tar_list)]
+        np.savez_compressed("fruits.npz",self.src_images,self.tar_images)
+        print("Saved to 'fruits.npz'!!")
+        self.src_images,self.tar_images= self.loadData("fruits.npz")
+        print(self.src_images[50][50][50][1])
+
+
+
+
     # clears folder where test data will go...
     def clearFolder(self):
         # Iterates through files in test labeled data
@@ -105,12 +125,6 @@ class DatasetRetrieval:
                     os.unlink(file_path)
             except Exception as e:
                 print(e)
-    """
-    Attempt to upscale an image from edge pixelation
-    """
-    def upScale(self):
-        print("To be implemented...")
-
     """
     Getters and setters for above arrays...
     """
@@ -136,5 +150,29 @@ class DatasetRetrieval:
     def addEdgeArray(self,image):
         np.append(self.edgeArray,image)
         print("Added edge photo")
+
+
+
+
+
+
+    def loadData(self,filename):
+        data = np.load(filename)
+        self.src_images, self.tar_images = data['arr_0'], data['arr_1']
+        print('Loaded: ', self.src_images.shape, self.tar_images.shape)
+        n_samples = 3
+        for i in range(n_samples):
+            plt.subplot(2, n_samples, 1 + i)
+            plt.axis('off')
+            plt.imshow(self.src_images[i].astype('uint8'))
+        # plot target image
+        for i in range(n_samples):
+            plt.subplot(2, n_samples, 1 + n_samples + i)
+            plt.axis('off')
+            plt.imshow(self.tar_images[i].astype('uint8'))
+        plt.show()
+        self.src_images = (self.src_images - 127.5) / 127.5
+        self.tar_images = (self.tar_images - 127.5) / 127.5
+        return [self.src_images,self.tar_images]
     """ 
 """
