@@ -12,7 +12,7 @@ from keras.layers import Dense
 
 """
 Point of this class is to create multiple generators for different types of fruit
-Initial Size- 12 x 12
+Initial Size- 33 x 33
 Target Size- 100 x 100
 """
 class Generator:
@@ -22,11 +22,16 @@ class Generator:
         self.NUM_CLASSES = 10
         self.BATCH_SIZE = 128
         self.EPOCHS = 5
-        m_1 = Input(shape=(12,12,3))
-        m_1= Dense(10,input_dim=12)
+        #m_1 = Input(shape=(12,12,3))
+        #m_1= Dense(10,input_dim=12)
     # A CONVOLUTION ALLOWS FOR 'HIDDEN LAYERS' TO BE PROCESSED
     # HIDDEN LAYERS ALLOW FOR CLASSIFICATION- PRODUCTION OF IMAGE
     """
     Create a convolution just for classifying...
     Next convolution is to build object based off last convolution...
     """
+    def define_gen(self,imageShape=(33,33,3)):
+        init = RandomNormal(stddev=0.04)
+        in_image = Input(shape=imageShape)
+        g = Conv2D(imageShape, (3,3),strides(1,1),padding='same',kernel_initializer=init,)
+        g = BatchNormalization()(g,training=True)
