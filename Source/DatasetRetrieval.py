@@ -21,7 +21,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 3000
+        self.testSize = 500
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
@@ -32,6 +32,8 @@ class DatasetRetrieval:
         self.edgePixArray=self.edgePixArray.astype(np.ndarray)
         self.origArray = np.zeros(()) # STORES 100 x 100 IMAGES
         self.origArray=self.origArray.astype(np.ndarray)
+        self.src_images=[]
+        self.tar_images=[]
 
     """
     Used to retrieve a random set of images in dataset...
@@ -46,7 +48,7 @@ class DatasetRetrieval:
                 self.imArray[item]= ''.join(str(content[rand][0:-5]).strip('\r\n') + 'jpg')
                 print(self.imArray[item],"fdjkjk")
                 #self.imArray[item]= str(content[rand].strip('\\'))  #imArray contains full quality image set locations
-            self.drawImageSample(self.testSize,'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images')
+            return self.drawImageSample(self.testSize,'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images')
 
 
     ################################
@@ -126,8 +128,7 @@ class DatasetRetrieval:
         print("Saved to 'fruits.npz'!!")
         self.src_images,self.tar_images= self.loadData("fruits.npz")
         print(self.src_images[50][50][50][1])
-
-
+        return [self.src_images,self.tar_images]#,np.ones((sample_size, 1, 1, 1))
 
 
     # clears folder where test data will go...
@@ -140,6 +141,7 @@ class DatasetRetrieval:
                     os.unlink(file_path)
             except Exception as e:
                 print(e)
+
     """
     Getters and setters for above arrays...
     """
