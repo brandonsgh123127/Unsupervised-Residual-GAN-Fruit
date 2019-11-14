@@ -21,7 +21,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 500
+        self.testSize = 100
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
