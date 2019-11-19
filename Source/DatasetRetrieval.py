@@ -21,7 +21,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 100
+        self.testSize = 1000
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
@@ -83,7 +83,7 @@ class DatasetRetrieval:
 
 
             edges = cv2.Canny(img, width, height)  # CREATES AN EDGE DETECTION IMAGE
-            w, h = (33, 33)  # New width/height of image...
+            w, h = (32, 32)  # New width/height of image...
             #Creates pixelated photos using Inter-Linear interpolation
             temp = cv2.resize(img, (w, h), interpolation=cv2.INTER_BITS)
             output = cv2.resize(temp, (width, height), interpolation=cv2.INTER_AREA)
@@ -167,9 +167,6 @@ class DatasetRetrieval:
     def addEdgeArray(self,image):
         np.append(self.edgeArray,image)
         print("Added edge photo")
-
-
-
 
 
 

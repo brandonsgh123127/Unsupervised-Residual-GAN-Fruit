@@ -2,14 +2,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 import cv2 #USED FOR EDGE DETECTION IN IMAGES
+from matplotlib import pyplot
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Activation
 import numpy as np
-from tensorflow import keras
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Dense
-import DatasetRetrieval as DataR
+import Source.DatasetRetrieval as DataR
 
 
 from numpy.random import randint
@@ -32,7 +32,7 @@ ops.reset_default_graph()
 """
 Point of this class is to create multiple generators for different types of fruit
 Initial Size- 33 x 33
-Target Size- 100 x 100
+Target Size- 96 x 96
 """
 class Generator:
     def __init__(self):
@@ -54,81 +54,42 @@ class Generator:
     Create a convolution just for classifying...
     Next convolution is to build object based off last convolution...
     """
-    def encoder(self,layer_in,n_filters,batchnorm=True):
-        init = RandomNormal(stddev=0.02)
-        g = Conv2D(n_filters,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(layer_in)
-        if batchnorm:
-            g = BatchNormalization()(g, training=True)
-        g = LeakyReLU(alpha=0.2)(g)
-        return g
 
-    def decoder(self,layer_in,skip_in,n_filters,dropout=True):
-        init = RandomNormal(stddev=0.02)
-        g = Conv2DTranspose(n_filters,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(layer_in)
-        g = BatchNormalization()(g,training=True)
-        if dropout:
-            g = Dropout(.5)(g,training=True)
-        g=Concatenate()([g,skip_in])
-        g=Activation('relu')(g)
-        return g
-
-    def define_gen(self,imageShape=(256,256,3)):
-        init = RandomNormal(stddev=0.02)
-        in_image = Input(shape=imageShape)
-        e1 = self.encoder(in_image,64,batchnorm=False)
-        e2=self.encoder(e1,128)
-        e3=self.encoder(e2,256)
-        e4=self.encoder(e3,512)
-        e5=self.encoder(e4,512)
-        e6=self.encoder(e5,512)
-        e7=self.encoder(e6,512)
-
-        b = Conv2D(512,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(e7)
-        b = Activation('relu')(b)
-        d1 = self.decoder(b,e7,512)
-        d2 = self.decoder(d1,e6,512)
-        d3 = self.decoder(d2,e5,512)
-        d4 = self.decoder(d3,e4,512,dropout=False)
-        d5 = self.decoder(d4,e3,256,dropout=False)
-        d6 = self.decoder(d5,e2,128,dropout=False)
-        d7 = self.decoder(d6,e1,64,dropout=False)
-
-        g = Conv2DTranspose(3,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(d7)
-        out_image = Activation('tanh')(g)
-
-        model = Model(in_image,out_image)
-        return model
 
     def define_discriminator(self,image_shape):
-        # weight initialization
-        init = RandomNormal(stddev=0.02)
-        # source image input
+        # initialize weight
+        initial = RandomNormal(stddev=0.02)
+        # source image
         in_src_image = Input(shape=image_shape)
-        # target image input
+        # target image
         in_target_image = Input(shape=image_shape)
-        # concatenate images channel-wise
-        merged = Concatenate()([in_src_image, in_target_image])
-        # C64
-        d = Conv2D(64, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(merged)
+        # place both source and target images in one
+        merged_images = Concatenate()([in_src_image, in_target_image])
+        """
+        CONVOLUTIONAL NETWORK FOR DISCRIMINATOR!!!   
+        """
+        d = Conv2D(32,(4,4),strides=(2,2),padding='same',kernel_initializer=RandomNormal(stddev=0.02))(merged_images)
         d = LeakyReLU(alpha=0.2)(d)
-        # C128
-        d = Conv2D(128, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(d)
-        d = BatchNormalization()(d)
+
+        d = Conv2D(64,(4,4),strides=(2,2),padding='same',kernel_initializer=RandomNormal(stddev=0.02))(d)
+        d = BatchNormalization(axis=-1)(d)
         d = LeakyReLU(alpha=0.2)(d)
-        # C256
-        d = Conv2D(256, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(d)
-        d = BatchNormalization()(d)
+
+        d = Conv2D(96,(4,4),strides=(2,2),padding='same',kernel_initializer=RandomNormal(stddev=0.02))(d)
+        d = BatchNormalization(axis=-1)(d)
         d = LeakyReLU(alpha=0.2)(d)
-        # C512
-        d = Conv2D(512, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(d)
-        d = BatchNormalization()(d)
+
+
+        d = Conv2D(192,(4,4),strides=(2,2),padding='same',kernel_initializer=RandomNormal(stddev=0.02))(d)
+        d = BatchNormalization(axis=-1)(d)
         d = LeakyReLU(alpha=0.2)(d)
-        # second last output layer
-        d = Conv2D(512, (4, 4), padding='same', kernel_initializer=init)(d)
-        d = BatchNormalization()(d)
+
+        d = Conv2D(192,(4,4),strides=(2,2),padding='same',kernel_initializer=RandomNormal(stddev=0.02))(d)
+        d = BatchNormalization(axis=-1)(d)
         d = LeakyReLU(alpha=0.2)(d)
-        # patch output
-        d = Conv2D(1, (4, 4), padding='same', kernel_initializer=init)(d)
+
+
+        d = Conv2D(1,(4,4),padding='same',kernel_initializer=RandomNormal(stddev=0.02))(d)
         patch_out = Activation('sigmoid')(d)
         # define model
         model = Model([in_src_image, in_target_image], patch_out)
@@ -136,9 +97,67 @@ class Generator:
         opt = Adam(lr=0.0002, beta_1=0.5)
         model.compile(loss='binary_crossentropy', optimizer=opt, loss_weights=[0.5])
         return model
+
+
+
+    def define_gen(self,image_shape=(96,96,3)):
+        init = RandomNormal(stddev=0.02)
+        in_image = Input(shape=image_shape)
+        # ENCODE PROCESS FOR GENERATOR
+        g1 = Conv2D(32,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(in_image)
+        g1 = LeakyReLU(alpha=0.2)(g1)
+
+        g2 = Conv2D(96,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(g1)
+        g2 = BatchNormalization()(g2,training=True)
+        g2 = LeakyReLU(alpha=0.2)(g2)
+
+        g3 = Conv2D(192, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(g2)
+        g3 = LeakyReLU(alpha=0.2)(g3)
+        g3 = BatchNormalization()(g3,training=True)
+
+        g4 = Conv2D(192, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(g3)
+        g4 = LeakyReLU(alpha=0.2)(g4)
+        g4 = BatchNormalization()(g4, training=True)
+
+
+
+        # BOTTLE NECK THE ENCODER
+        b = Conv2D(192, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(g4)
+        b = Activation('relu')(b)
+
+        # DECODE THE ENCODED NETWORK
+        g5 = Conv2DTranspose(192, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(b)
+        g5 = BatchNormalization()(g5, training=True)
+        g5 = Concatenate()([g5, g4])
+        g5 = Dropout(0.5)(g5, training=True)
+        g5 = Activation('relu')(g5)
+
+        g6 = Conv2DTranspose(192, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(g5)
+        g6 = BatchNormalization()(g6, training=True)
+        g6 = Concatenate()([g6, g3])
+        g6 = Dropout(0.5)(g6, training=True)
+        g6 = Activation('relu')(g6)
+
+        g7 = Conv2DTranspose(96, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(g6)
+        g7 = BatchNormalization()(g7, training=True)
+        g7 = Concatenate()([g7, g2])
+        g7 = Activation('relu')(g7)
+
+        g8 = Conv2DTranspose(64, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(g7)
+        g8 = BatchNormalization()(g8, training=True)
+        g8 = Concatenate()([g8, g1])
+        g8 = Activation('relu')(g8)
+
+
+        g9= Conv2DTranspose(3, (4, 4), strides=(2, 2), padding='same', kernel_initializer=init)(g8)
+        out_image = Activation('tanh')(g9)
+
+        model = Model(in_image,out_image)
+        return model
+
     def define_GAN(self,g_model,d_model,image_shape):
         d_model.trainable = False
-        in_src = Input(shape=image_shape)
+        in_src = Input(shape=(96,96,3))
         gen_out = g_model(in_src)
         dis_out = d_model([in_src,gen_out])
         model = Model(in_src,[dis_out,gen_out])
@@ -146,80 +165,27 @@ class Generator:
         model.compile(loss=['binary_crossentropy','mae'],optimizer=opt,loss_weights=[1,100])
         return model
 
-    def train(self,d_model, g_model, gan_model, dataset, n_epochs=100, n_batch=1):
-        # determine the output square shape of the discriminator
-        n_patch = d_model.output_shape[1]
-        # unpack dataset
-        trainA, trainB = dataset
-        # calculate the number of batches per training epoch
-        bat_per_epo = int(len(trainA) / n_batch)
-        # calculate the number of training iterations
-        n_steps = bat_per_epo * n_epochs
-        # manually enumerate epochs
-        for i in range(n_steps):
-            # select a batch of real samples
-            [X_realA, X_realB], y_real = self.generateRealSamples(dataset, n_batch, n_patch)
-            # generate a batch of fake samples
-            X_fakeB, y_fake = generate_fake_samples(g_model, X_realA, n_patch)
-            # update discriminator for real samples
-            d_loss1 = d_model.train_on_batch([X_realA, X_realB], y_real)
-            # update discriminator for generated samples
-            d_loss2 = d_model.train_on_batch([X_realA, X_fakeB], y_fake)
-            # update the generator
-            g_loss, _, _ = gan_model.train_on_batch(X_realA, [y_real, X_realB])
-            # summarize performance
-            print('>%d, d1[%.3f] d2[%.3f] g[%.3f]' % (i + 1, d_loss1, d_loss2, g_loss))
-            # summarize model performance
-            if (i + 1) % (bat_per_epo * 10) == 0:
-                summarize_performance(i, g_model, dataset)
 
     def generate_real_samples(self,dataset, n_samples, patch_shape):
-        # unpack dataset
+        # Dataset pushed to a and b
+        # WHERE A IS REAL ORIG IMAGE AND B IS PIXELATED IMAGE
         trainA, trainB = dataset
-        # choose random instances
-        ix = randint(0, trainA.shape[0], n_samples)
-        # retrieve selected images
-        X1, X2 = trainA[ix], trainB[ix]
+
+        # Random value of dataset
+        rand = randint(0, trainA.shape[0], n_samples)
+        # retrieve images
+        X1, X2 = trainA[rand], trainB[rand]
         # generate 'real' class labels (1)
         y = np.ones((n_samples, patch_shape, patch_shape, 1))
         return [X1, X2], y
-    # train pix2pix model
-    def train(self,d_model, g_model, gan_model, dataset, n_epochs=100, n_batch=1):
-        # determine the output square shape of the discriminator
-        n_patch = d_model.output_shape[1]
-        # unpack dataset
-        trainA, trainB = dataset
-        # calculate the number of batches per training epoch
-        bat_per_epo = int(len(trainA) / n_batch)
-        # calculate the number of training iterations
-        n_steps = bat_per_epo * n_epochs
-        # manually enumerate epochs
-        for i in range(n_steps):
-            # select a batch of real samples
-            [X_realA, X_realB], y_real = self.generate_real_samples(dataset, n_batch, n_patch)
-            # generate a batch of fake samples
-            X_fakeB, y_fake = self.generateFakeSamples(g_model, X_realA, n_patch)
-            # update discriminator for real samples
-            d_model.compile(optimizer=Adam(lr=0.0002,beta_1=0.5), loss='same')
-            d_loss1 = d_model.train_on_batch([X_realA, X_realB], y_real)
-            # update discriminator for generated samples
-            d_model.compile(optimizer=Adam(lr=0.0002,beta_1=0.5), loss='same')
-            d_loss2 = d_model.train_on_batch([X_realA, X_fakeB], y_fake)
-            # update the generator
-            g_loss, _, _ = gan_model.train_on_batch(X_realA, [y_real, X_realB])
-            # summarize performance
-            print('>%d, d1[%.3f] d2[%.3f] g[%.3f]' % (i + 1, d_loss1, d_loss2, g_loss))
-            # summarize model performance
-            if (i + 1) % (bat_per_epo * 10) == 0:
-                self.summarize_performance(i, g_model, dataset)
 
 
-    # generate samples and save as a plot and save the model
+    # Save each set and plot
     def summarize_performance(self,step, g_model, dataset, n_samples=3):
         # select a sample of input images
         [X_realA, X_realB], _ = self.generate_real_samples(dataset, n_samples, 1)
         # generate a batch of fake samples
-        X_fakeB, _ = self.generateFakeSamples(g_model, X_realA, 1)
+        X_fakeB, _ = self.generateFakeSamples(g_model, X_realB, 1)
         # scale all pixels from [-1,1] to [0,1]
         X_realA = (X_realA + 1) / 2.0
         X_realB = (X_realB + 1) / 2.0
@@ -248,21 +214,55 @@ class Generator:
         g_model.save(filename2)
         print('>Saved: %s and %s' % (filename1, filename2))
     def start(self):
-        # load image data
+
+        # THIS IS THE DATA THAT IS RETRIEVED IN DATASET
         dataset = DataR.DatasetRetrieval()
         self.dataset = dataset.retrieveImages()
-        print('Loaded', self.dataset[0].shape, self.dataset[0].shape[1:])
-        # define input shape based on the loaded dataset
-        image_shape = self.dataset[0].shape[1:]
-        # define the models
-        d_model = self.define_discriminator(image_shape=(256,256,3))
-        #d_model = self.define_gen(image_shape)
-        g_model = self.define_gen()
-        # define the composite model
 
-        """
-        BREAK POINT<<<<<  BROKEN!
-        """
-        gan_model = self.define_GAN(g_model, d_model, image_shape)
-        # train model
-        self.train(d_model, g_model, gan_model, self.dataset)
+
+        print('Loaded ', self.dataset[0].shape, self.dataset[0].shape[1:], " Image sizes")
+        # Image shape is 96 x 96 x 3 in this dataset
+        image_shape = self.dataset[0].shape[1:]
+        # define descriminator model
+        descrim_model = self.define_discriminator(image_shape)
+        #d_model = self.define_gen(image_shape)
+        gen_model = self.define_gen()
+
+
+        # GAN MODEL USES BOTH A GENERATOR AND DESCRIMINATOR INSIDE....
+        gan_model = self.define_GAN(gen_model, descrim_model, image_shape)
+        #
+        #self.train(descrim_model, gen_model, gan_model, self.dataset)
+
+        print(descrim_model.get_output_shape_at(1))
+        n_patch = descrim_model.get_output_shape_at(1)[1]
+        n_batches=1
+        # unpack dataset
+        trainA, trainB = self.dataset
+        # num of batches per epoch
+        bat_per_epo = int(len(trainA) / n_batches)
+        # Calculates total iterations needed based on epochs (100 epochs)
+        n_steps = bat_per_epo * 100
+        # manually enumerate epochs
+        for i in range(n_steps):
+            # get real samples
+            [X_realA, X_realB], y_real = self.generate_real_samples(self.dataset, n_batches, n_patch)
+            # generate fakes
+            X_fakeB, y_fake = self.generateFakeSamples(gen_model, X_realB, n_patch)
+
+
+            # Loss function of first set of real images
+            d_loss1 = descrim_model.train_on_batch([X_realA, X_realB], y_real)
+
+            # Loss function for fake images
+            d_loss2 = descrim_model.train_on_batch([X_realA, X_fakeB], y_fake)
+
+            # update the generator
+            g_loss, _, _ = gan_model.train_on_batch(X_realA, [y_real, X_realB])
+
+            # Loss functions of descriminator and generators
+            print('>%d, d1[%.4f] d2[%.4f] g[%.4f]' % (i + 1, d_loss1, d_loss2, g_loss))
+
+            # every end of epoch, save data.....
+            if (i + 1) % (bat_per_epo) == 0:
+                self.summarize_performance(i, gen_model, self.dataset)
