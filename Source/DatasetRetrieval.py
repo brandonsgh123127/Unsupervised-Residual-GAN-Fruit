@@ -21,7 +21,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 300 # CHANGE LATER
+        self.testSize = 1000 # CHANGE LATER
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
@@ -124,7 +124,7 @@ class DatasetRetrieval:
         self.src_images,self.tar_images = np.asarray(src_list), np.asarray(tar_list)
         np.savez_compressed("fruits.npz",self.src_images,self.tar_images)
         print("Saved to 'fruits.npz'!!")
-        #self.src_images,self.tar_images= self.loadData("fruits.npz")
+        self.src_images,self.tar_images= self.loadData("fruits.npz")
         print(self.src_images[50][50][50][1])
         return np.asarray(self.src_images),np.asarray(self.tar_images)#,np.ones((sample_size, 1, 1, 1))
 
@@ -183,19 +183,19 @@ class DatasetRetrieval:
             plt.axis('off')
             plt.imshow(self.tar_images[i].astype('uint8'))
         plt.show()
-        self.normalize()
+        self.src_images=normalize(self.src_images)
+        self.tar_images=normalize(self.tar_images)
         return [self.src_images,self.tar_images]
 
 
-    def normalize(self):
-        self.src_images = (self.src_images - 127.5) / 127.5
-        self.tar_images = (self.tar_images - 127.5) / 127.5
+def normalize(src):
+    src = (src - 127.5) / 127.5
+    return src
 
 
-    def denormalize(self):
-        self.src_images = (self.src_images +1) * 127.5
-        self.tar_images = (self.tar_images +1) * 127.5
-
+def denormalize(src):
+    src = (src +1) * 127.5
+    return src
 
     """ 
 """

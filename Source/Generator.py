@@ -43,7 +43,7 @@ ops.reset_default_graph()
 def generateFakeSamples(g_model, samples, patch_shape):
     print(samples.shape)
     X = g_model.predict(samples)
-    print("len x", len(X), "patch shape ", patch_shape)
+    #print("len x", len(X), "patch shape ", patch_shape)
     Y = np.zeros((len(X), patch_shape, patch_shape, 1))
     return X,Y
 
@@ -73,7 +73,7 @@ class Generator(object):
         print(self.image_shape," before generate")
         # ENCODE PROCESS FOR GENERATOR
 
-        g0 = Conv2D(8,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(in_image)
+        g0 = Conv2D(4,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(in_image)
         g0 = LeakyReLU(alpha=0.2)(g0)
         tmp = g0
 
