@@ -21,7 +21,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 1000
+        self.testSize = 300 # CHANGE LATER
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
@@ -82,15 +82,13 @@ class DatasetRetrieval:
                 width, height, _ = img.shape
 
 
-            edges = cv2.Canny(img, width, height)  # CREATES AN EDGE DETECTION IMAGE
+            #edges = cv2.Canny(img, width, height)  # CREATES AN EDGE DETECTION IMAGE
             w, h = (32, 32)  # New width/height of image...
             #Creates pixelated photos using Inter-Linear interpolation
             temp = cv2.resize(img, (w, h), interpolation=cv2.INTER_BITS)
-            output = cv2.resize(temp, (width, height), interpolation=cv2.INTER_AREA)
-            temp2 = cv2.Canny(temp, w, h)
-            """
-            # We need to save this data now to testLabeledData folder for use in Semi-Supervised Learning
-            """
+            #output = cv2.resize(temp, (width, height), interpolation=cv2.INTER_AREA)
+            #temp2 = cv2.Canny(temp, w, h)
+
            # cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\ORIG_%s' % ' '.join(
             #    map(str, self.imArray[item])),img)
             #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\EDGES_%s' % ' '.join(
@@ -105,11 +103,11 @@ class DatasetRetrieval:
             #fig = plt.figure(figsize=(12,12))
             #fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
             #plt.imshow(output, )
-            self.addPixArray(output)
+            self.addPixArray(temp)
             # fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
             self.addOrigArray(img)
             self.origData = img_to_array(img)
-            self.pixData = img_to_array(output)
+            self.pixData = img_to_array(temp)
             #fig.add_subplot(2, 2, 3).set(xlabel='pix edge'), plt.imshow(temp2,cmap='gray' )
             #self.addEdgePixArray(temp2)
             #fig.add_subplot(2, 2, 4).set(xlabel='orig edge'), plt.imshow(edges,cmap='gray' )
@@ -123,12 +121,12 @@ class DatasetRetrieval:
         """
         In order to use for 2 variables, save data to numpy file
         """
-        [self.src_images,self.tar_images] = [np.asarray(src_list), np.asarray(tar_list)]
+        self.src_images,self.tar_images = np.asarray(src_list), np.asarray(tar_list)
         np.savez_compressed("fruits.npz",self.src_images,self.tar_images)
         print("Saved to 'fruits.npz'!!")
-        self.src_images,self.tar_images= self.loadData("fruits.npz")
+        #self.src_images,self.tar_images= self.loadData("fruits.npz")
         print(self.src_images[50][50][50][1])
-        return [self.src_images,self.tar_images]#,np.ones((sample_size, 1, 1, 1))
+        return np.asarray(self.src_images),np.asarray(self.tar_images)#,np.ones((sample_size, 1, 1, 1))
 
 
     # clears folder where test data will go...
@@ -185,8 +183,19 @@ class DatasetRetrieval:
             plt.axis('off')
             plt.imshow(self.tar_images[i].astype('uint8'))
         plt.show()
+        self.normalize()
+        return [self.src_images,self.tar_images]
+
+
+    def normalize(self):
         self.src_images = (self.src_images - 127.5) / 127.5
         self.tar_images = (self.tar_images - 127.5) / 127.5
-        return [self.src_images,self.tar_images]
+
+
+    def denormalize(self):
+        self.src_images = (self.src_images +1) * 127.5
+        self.tar_images = (self.tar_images +1) * 127.5
+
+
     """ 
 """
