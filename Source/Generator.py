@@ -1,34 +1,15 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import os
-import cv2 #USED FOR EDGE DETECTION IN IMAGES
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.layers import MaxPooling2D
-from matplotlib import pyplot
-from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Activation
 import numpy as np
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
-from tensorflow.keras.layers import Dense
-from tensorflow_core.python.ops import nn
-
-import DatasetRetrieval as DataR
-from tensorflow.keras.applications.vgg19 import VGG19
-
-
-from numpy.random import randint
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.initializers import RandomNormal
 from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import UpSampling2D
-from tensorflow.keras.layers import Conv2DTranspose
-from tensorflow.keras.layers import LeakyReLU
 from tensorflow.keras.layers import Concatenate
 from tensorflow.keras.layers import Dropout
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import LeakyReLU
-from tensorflow.keras import backend
 
 
 from tensorflow.python.framework import ops
@@ -40,9 +21,7 @@ ops.reset_default_graph()
 
 # Looks like X predicts values over 1, under -1
 def generateFakeSamples(g_model, samples, patch_shape):
-    print(samples.shape)
     X = g_model.predict(samples)
-    #print("len x", len(X), "patch shape ", patch_shape)
     Y = np.zeros((len(X), patch_shape, patch_shape, 1))
     return X,Y
 
@@ -72,7 +51,7 @@ class Generator(object):
         print(self.image_shape," before generate")
         # ENCODE PROCESS FOR GENERATOR
 
-        g0 = Conv2D(4,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(in_image)
+        g0 = Conv2D(8,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(in_image)
         g0 = LeakyReLU(alpha=0.2)(g0)
         tmp = g0
 

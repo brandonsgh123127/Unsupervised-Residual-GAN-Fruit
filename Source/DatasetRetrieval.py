@@ -20,7 +20,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 1000 # CHANGE LATER
+        self.testSize = 300 # CHANGE LATER
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
@@ -166,7 +166,10 @@ class DatasetRetrieval:
         print("Added edge photo")
 
 
-
+    """
+    # Loads image array stored in 'fruits.npz' created prior, and 'normalizes' pixel values from [-1.,1].
+    #
+    """
     def loadData(self,filename):
         data = np.load(filename)
         self.src_images, self.tar_images = data['arr_0'], data['arr_1']
@@ -182,19 +185,23 @@ class DatasetRetrieval:
             plt.axis('off')
             plt.imshow(self.tar_images[i].astype('uint8'))
         plt.show()
-        self.src_images=normalize(self.src_images)
-        self.tar_images=normalize(self.tar_images)
+        self.normalize()
         return [self.src_images,self.tar_images]
 
+    """
+    # Converts from [0,255] to [-1.,1]
+    """
+    def normalize(self):
+        self.src_images = (self.src_images - 127.5) / 127.5
+        self.tar_images = (self.tar_images - 127.5) / 127.5
 
-def normalize(src):
-    src = (src - 127.5) / 127.5
-    return src
+    """
+    # Converts from [-1.,1] to [0,255]
+    """
+    def denormalize(self):
+        self.src_images = (self.src_images +1) * 127.5
+        self.tar_images = (self.tar_images +1) * 127.5
 
-
-def denormalize(src):
-    src = (src +1) * 127.5
-    return src
 
     """ 
 """
