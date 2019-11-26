@@ -12,8 +12,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Dense
 from tensorflow_core.python.ops import nn
-from tensorlayer.layers import Reshape
-import Source.DatasetRetrieval as DataR
+import DatasetRetrieval as DataR
 from tensorflow.keras.applications.vgg19 import VGG19
 from numpy.random import randint
 from tensorflow.keras.optimizers import Adam
@@ -45,9 +44,9 @@ class Discriminator(object):
         in_src_image = Input(shape=self.image_shape)
         print("descrim shape int ", self.image_shape)
         # target image
-        in_target_image = Input(shape=self.image_shape)
+        #in_target_image = Input(shape=self.image_shape)
         # place both source and target images in one
-        merged_images = Concatenate()([in_src_image, in_target_image])
+       # merged_images = Concatenate()([in_src_image, in_target_image])
         """
         CONVOLUTIONAL NETWORK FOR DISCRIMINATOR!!!   
         """
@@ -109,7 +108,7 @@ class Discriminator(object):
         # d = Activation('sigmoid')(d)
 
         # define model
-        model = Model([in_src_image], d2)
+        model = Model(in_src_image,d2)
         # compile model
         # opt = Adam(lr=0.0002, beta_1=0.5)
         opt = Adam(lr=0.0002, beta_1=0.5)

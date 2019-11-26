@@ -12,9 +12,8 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Dense
 from tensorflow_core.python.ops import nn
-from tensorlayer.layers import Reshape
 
-import Source.DatasetRetrieval as DataR
+import DatasetRetrieval as DataR
 from tensorflow.keras.applications.vgg19 import VGG19
 
 
@@ -32,86 +31,85 @@ from tensorflow.keras.layers import LeakyReLU
 from tensorflow.keras import backend
 from tensorflow.python.framework import ops
 
-from Source import Discriminator, Generator
+import Discriminator
+import Generator
 
 ops.reset_default_graph()
 
 
 
-def define_GAN(g_model,d_model):
+def define_GAN(g_model,d_model,image_shape):
     d_model.trainable = False
-    in_src = Input(shape=(32,32,3))
+    in_src = Input(shape=(32,32,3)) # 32 32 3
     out_src = Input(shape=(96,96,3))
     gen_out = g_model(in_src)
-    dis_out = d_model([out_src,gen_out])
-    model = Model([in_src,out_src],[dis_out])
+    dis_out = d_model(gen_out)
+    model = Model(inputs=in_src,outputs=[gen_out,dis_out])
     #model = Model(in_src,[gen_out,dis_out])
     opt = Adam(lr=0.0002,beta_1=0.5)
-    model.compile(loss=['binary_crossentropy'],optimizer=opt)
+    model.compile(loss=["mse", "binary_crossentropy"],optimizer=opt)
     #generator_model = Model(inputs=in_src, outputs=model)
     return model
 
 
-def generate_real_samples(dataset, n_samples, patch_shape):
+def generate_real_samples(dataset, n_samples, n_patch):
     # Dataset pushed to a and b
     # WHERE A IS REAL ORIG IMAGE AND B IS PIXELATED IMAGE
-    trainA, trainB = dataset
+    train_hr, train_lr = dataset
 
     # Random value of dataset
-    rand = randint(0, trainA.shape[0], n_samples)
+    rand = randint(0, train_hr.shape[0], n_samples)
 
-    X1, X2 = trainA[rand], trainB[rand]
+    X1, X2 = train_hr[rand], train_lr[rand]
 
     # generate 'real' class labels (1)
-    y = np.ones((n_samples, patch_shape, patch_shape, 1))
-    return X1, X2, y
+    y1 = np.ones((n_samples, n_patch, n_patch, 1))
+    y2 = np.ones((n_samples, 96, 96, 1))
+    return X1, X2, y1,y2
 
 
-# def build_vgg():
-#     """
-#     Builds a pre-trained VGG19 model that outputs image features extracted at the
-#     third block of the model
-#     """
-#     vgg = VGG19(weights="imagenet")
-#     # Set outputs to outputs of last conv. layer in block 3
-#     # See architecture at: https://github.com/keras-team/keras/blob/master/keras/applications/vgg19.py
-#     vgg.outputs = [vgg.layers[9].output]
-#
-#     img = Input(shape=(96,96,3))
-#
-#     # Extract image features
-#     img_features = vgg(img)
-#
-#     return Model(img, img_features)
+def build_vgg(gen):
+    """
+    Builds a pre-trained VGG19 model that outputs image features extracted at the
+    third block of the model
+    """
+    vgg = VGG19(weights="imagenet")
+    # Set outputs to outputs of last conv. layer in block 3
+    # See architecture at: https://github.com/keras-team/keras/blob/master/keras/applications/vgg19.py
+    vgg.outputs = [vgg.layers[9].output]
+
+    img = Input(shape=(96,96,3))
+
+    # Extract image features
+    img_features = vgg(img)
+
+    return Model(img, img_features)
 # Save each set and plot
 def summarize_performance(step, g_model, dataset, n_samples=3):
     # select a sample of input images
     X_real_hr, X_real_lr, y_real = generate_real_samples(dataset, n_samples, 1)
     # generate a batch of fake samples
-    # image_features = vgg.predict()
-
     X_fake_hr, _ = Generator.generateFakeSamples(g_model, X_real_lr, 1)
 
     # scale all pixels from [-1,1] to [0,1]
-    X_real_hr= (X_real_hr + 1) / 2.0
-    X_real_lr = (X_real_lr + 1) / 2.0
-    X_fake_hr = (X_fake_hr + 1) / 2.0
-    #DataR.denormalize(X_fake_hr)
+    X_realA = (X_real_hr + 1) / 2.0
+    X_realB = (X_real_lr + 1) / 2.0
+    X_fakeB = (X_fake_hr + 1) / 2.0
     # plot real source images
     for i in range(n_samples):
         pyplot.subplot(3, n_samples, 1 + i)
         pyplot.axis('off')
-        pyplot.imshow(X_real_hr[i])
+        pyplot.imshow(X_realA[i])
     # plot generated target image
     for i in range(n_samples):
         pyplot.subplot(3, n_samples, 1 + n_samples + i)
         pyplot.axis('off')
-        pyplot.imshow(X_fake_hr[i])
+        pyplot.imshow(X_fakeB[i])
     # plot real target image
     for i in range(n_samples):
         pyplot.subplot(3, n_samples, 1 + n_samples * 2 + i)
         pyplot.axis('off')
-        pyplot.imshow(X_real_lr[i])
+        pyplot.imshow(X_realB[i])
     # save plot to file
     filename1 = 'plot_%06d.png' % (step + 1)
     pyplot.savefig(filename1)
@@ -127,7 +125,7 @@ def start():
     dataset = DataR.DatasetRetrieval()
     dataset = dataset.retrieveImages() # first half is orig images, 2nd half is pixelated images
 
-    print('Loaded ', dataset[0].shape)
+    print('Loaded ', dataset[0].shape, dataset[0].shape[1:], " Image sizes")
 
 
     # Image shape is 96 x 96 x 3 in this dataset
@@ -141,14 +139,21 @@ def start():
     gen_model = Generator.Generator((32,32,3))
     gen_model= gen_model.define_gen()
 
+    # vgg = build_vgg()
+    # vgg.trainable = False
+    # vgg.compile(loss='mse',
+    #             optimizer=Adam(0.0002,0.5),
+    #             metrics=['accuracy'])
     # GAN MODEL IMPLEMENTS BOTH GENERATOR AND DESCRIMINATOR INSIDE
-    gan_model = define_GAN(gen_model, descrim_model)
+    gan_model = define_GAN(gen_model, descrim_model,image_shape)
     #
     #self.train(descrim_model, gen_model, gan_model, self.dataset)
 
-    print(descrim_model.get_output_shape_at(1))
-    n_patch = descrim_model.get_output_shape_at(0)[1]
-    n_batches=1
+    print(descrim_model.get_output_shape_at(1),"SHAPE SHAPE")
+    n_patch = descrim_model.get_output_shape_at(1)[1] # size 1
+
+    n_batches= dataset[0].shape[0]
+    print(n_patch,"patch",n_batches,"batch")
     # unpack dataset
     train_hr, train_lr = dataset
     # num of batches per epoch
@@ -159,30 +164,27 @@ def start():
     # Train Discriminator...
     #
     #####################################
-    #patch = int((96 / 2 ** 4))
-    #disc_patch = (patch, patch, 1)
+    patch = int((96 / 2 ** 4))
+    patch = 96
+    disc_patch = (patch, patch, 1)
     bat_per_epo = int(len(train_hr) / n_batches)
     # Calculates total iterations needed based on epochs (100 epochs)
     n_steps = bat_per_epo * 100
     # manually enumerate epochs
     for i in range(n_steps):
         # get real samples
-        X_real_hr, X_real_lr,real_y = generate_real_samples(dataset, n_batches, n_patch)
+        X_real_hr, X_real_lr,real_y1,real_y2 = generate_real_samples(dataset, n_batches, n_patch)
         # generate fakes
         X_fakeB,fake_y = Generator.generateFakeSamples(gen_model, X_real_lr, n_patch,)
-        # vgg = build_vgg()
-        # vgg.trainable = False
-        # vgg.compile(loss='mse',
-        #             optimizer=Adam(0.0002, 0.5),
-        #             metrics=['accuracy'])
-        #X_real_hr = (X_real_hr + 1) / 2.0
-        #X_real_lr = (X_real_lr + 1) / 2.0
-        #X_fakeB = (X_fakeB + 1) / 2.0
 
-        # fake_features = vgg(X_fakeB)
+        X_real_hr = (X_real_hr + 1) / 2.0
+        X_real_lr = (X_real_lr + 1) / 2.0
+        X_fakeB = (X_fakeB + 1) / 2.0
+
+       # fake_features = vgg(X_fakeB)
 
         # Loss function of first set of real images
-        d_loss_real = descrim_model.train_on_batch(X_real_hr,real_y)
+        d_loss_real = descrim_model.train_on_batch(X_real_hr,real_y1)
 
         # Loss function for fake images
         d_loss_fake = descrim_model.train_on_batch(X_fakeB,fake_y)
@@ -191,11 +193,11 @@ def start():
         d_loss= 0.5 * np.add(d_loss_real,d_loss_fake)
 
 
-        # g_loss= gan_model.train_on_batch([X_real_lr, X_real_hr], [real_y, vgg])
+        g_loss= gan_model.train_on_batch(X_real_lr, [X_real_hr,real_y1]) #in_src,[gen_out,dis_out] model
 
         # Loss functions of descriminator and generators
         #print('>%d, d2[%.4f] g[%.4f]' % (i + 1, d_loss_real, d_loss_fake, d_loss))
 
         # every end of epoch, save data.....
-        if (i + 1) % (300) == 0:
+        if (i + 1) % (100) == 0:
             summarize_performance(i, gen_model, dataset)

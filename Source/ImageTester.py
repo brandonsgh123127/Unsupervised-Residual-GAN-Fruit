@@ -2,7 +2,7 @@ import DatasetRetrieval as DataR
 import ImageML as ML
 import Generator as g
 
-from Source import ImageML
+import ImageML
 
 
 def main():

@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from keras.preprocessing.image import img_to_array
-
 import Generator as generator
 import os
 import cv2 #USED FOR EDGE DETECTION IN IMAGES
@@ -48,7 +47,7 @@ class DatasetRetrieval:
                 self.imArray[item]= ''.join(str(content[rand][0:-5]).strip('\r\n') + 'jpg')
                 print(self.imArray[item],"fdjkjk")
                 #self.imArray[item]= str(content[rand].strip('\\'))  #imArray contains full quality image set locations
-            return self.drawImageSample(self.testSize,'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images')
+            return self.drawImageSample(self.testSize,'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Semi-Supervised-Learning\\BasicFruit Images\\BasicFruit Images')
 
 
     ################################
@@ -74,7 +73,7 @@ class DatasetRetrieval:
                 width, height, _ = img.shape
             except:
                 tmp = str(self.imArray[item])
-                tmp = tmp.strip('[]').strip('\'')
+                tmp = tmp.strip('[]').strip('\'').rstrip('g')
                 tmp+='g'
                 print(tmp)
                 img = cv2.imread(location + '\\%s' % ''.join(

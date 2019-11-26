@@ -12,9 +12,8 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Dense
 from tensorflow_core.python.ops import nn
-from tensorlayer.layers import Reshape
 
-import Source.DatasetRetrieval as DataR
+import DatasetRetrieval as DataR
 from tensorflow.keras.applications.vgg19 import VGG19
 
 
@@ -39,7 +38,7 @@ ops.reset_default_graph()
 
 
 
-
+# Looks like X predicts values over 1, under -1
 def generateFakeSamples(g_model, samples, patch_shape):
     print(samples.shape)
     X = g_model.predict(samples)
@@ -108,4 +107,6 @@ class Generator(object):
         print(out_image.shape," boom")
 
         model = Model(in_image,out_image)
+        #model = Model(inputs=[in_image], outputs=[g1])
+
         return model
