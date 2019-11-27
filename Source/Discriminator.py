@@ -92,7 +92,7 @@ class Discriminator(object):
 
 
         # define model
-        model = Model(in_src_image,d2)
+        model = Model(inputs=in_src_image,outputs=d2)
         # compile model
         opt = Adam(lr=0.0002, beta_1=0.5)
         model.compile(loss='binary_crossentropy', optimizer=opt, metrics=['accuracy'])

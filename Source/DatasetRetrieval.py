@@ -20,7 +20,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 300 # CHANGE LATER
+        self.testSize = 200# CHANGE LATER
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
@@ -81,42 +81,20 @@ class DatasetRetrieval:
                 width, height, _ = img.shape
 
 
-            #edges = cv2.Canny(img, width, height)  # CREATES AN EDGE DETECTION IMAGE
             w, h = (32, 32)  # New width/height of image...
             #Creates pixelated photos using Inter-Linear interpolation
             temp = cv2.resize(img, (w, h), interpolation=cv2.INTER_BITS)
-            #output = cv2.resize(temp, (width, height), interpolation=cv2.INTER_AREA)
-            #temp2 = cv2.Canny(temp, w, h)
-
-           # cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\ORIG_%s' % ' '.join(
-            #    map(str, self.imArray[item])),img)
-            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\EDGES_%s' % ' '.join(
-            #    map(str, self.imArray[item])),edges)
-            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIXEDGE_%s' % ' '.join(
-            #    map(str, self.imArray[item])),temp2)
-            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIX_%s' % ' '.join(
-           #     map(str, self.imArray[item])),output)
             """
             Matplotlib plot data for user to see
             """
-            #fig = plt.figure(figsize=(12,12))
-            #fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
-            #plt.imshow(output, )
             self.addPixArray(temp)
-            # fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
             self.addOrigArray(img)
             self.origData = img_to_array(img)
             self.pixData = img_to_array(temp)
-            #fig.add_subplot(2, 2, 3).set(xlabel='pix edge'), plt.imshow(temp2,cmap='gray' )
-            #self.addEdgePixArray(temp2)
-            #fig.add_subplot(2, 2, 4).set(xlabel='orig edge'), plt.imshow(edges,cmap='gray' )
-            #self.addEdgeArray(edges)
+
             orig_img, pix_img = self.origData[:, :sample_size], self.pixData[:, :sample_size]
             src_list.append(orig_img)
             tar_list.append(pix_img)
-            #plt.show()
-            #cv2.waitKey(0)
-            #print(self.edgeArray.size)
         """
         In order to use for 2 variables, save data to numpy file
         """

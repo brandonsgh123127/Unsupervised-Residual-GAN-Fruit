@@ -1,17 +1,8 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import os
-import cv2 #USED FOR EDGE DETECTION IN IMAGES
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.layers import MaxPooling2D
 from matplotlib import pyplot
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense,Activation
+
 import numpy as np
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
-from tensorflow.keras.layers import Dense
-from tensorflow_core.python.ops import nn
 
 import DatasetRetrieval as DataR
 from tensorflow.keras.applications.vgg19 import VGG19
@@ -19,22 +10,13 @@ from tensorflow.keras.applications.vgg19 import VGG19
 
 from numpy.random import randint
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.initializers import RandomNormal
-from tensorflow.keras.layers import Conv2D
-from tensorflow.keras.layers import UpSampling2D
-from tensorflow.keras.layers import Conv2DTranspose
-from tensorflow.keras.layers import LeakyReLU
-from tensorflow.keras.layers import Concatenate
-from tensorflow.keras.layers import Dropout
-from tensorflow.keras.layers import BatchNormalization
-from tensorflow.keras.layers import LeakyReLU
-from tensorflow.keras import backend
 from tensorflow.python.framework import ops
-
+import tensorflow as tf
+import keras
 import Discriminator
 import Generator
-
 ops.reset_default_graph()
+
 
 
 """
@@ -52,7 +34,7 @@ def define_GAN(g_model,d_model,image_shape):
     model = Model(inputs=in_src,outputs=[gen_out,dis_out])
     #model = Model(in_src,[gen_out,dis_out])
     opt = Adam(lr=0.0002,beta_1=0.5)
-    model.compile(loss=["binary_crossentropy", "binary_crossentropy"],optimizer=opt)
+    model.compile(loss=["mse", "binary_crossentropy"],optimizer=opt)
     #generator_model = Model(inputs=in_src, outputs=model)
     return model
 
@@ -60,7 +42,8 @@ def define_GAN(g_model,d_model,image_shape):
 Retrieves separate images to be used for GAN Network,
 X1, is original hr image, X2 is original lr image
 """
-def generate_real_samples(dataset, n_samples, n_patch):
+def generate_real_samples(n_samples, n_patch):
+    global dataset
     # Dataset pushed to a and b
     # WHERE A IS REAL ORIG IMAGE AND B IS PIXELATED IMAGE
     train_hr, train_lr = dataset
@@ -72,7 +55,6 @@ def generate_real_samples(dataset, n_samples, n_patch):
 
     # generate 'real' class labels (1)
     y1 = np.ones((n_samples, n_patch, n_patch, 1))
-    y2 = np.ones((n_samples, 96, 96, 1))
     return X1, X2, y1
 
 """
@@ -91,9 +73,10 @@ def build_vgg(gen):
 # After an epoch, normalize data, plot it on a chart to show data, then save to h5 file.
 #
 """
-def summarize_performance(step, g_model, dataset, n_samples=3):
+def summarize_performance(step, g_model, n_samples=3):
+    global dataset
     # select a sample of input images
-    X_real_hr, X_real_lr, y_real = generate_real_samples(dataset, n_samples, 1)
+    X_real_hr, X_real_lr, y_real = generate_real_samples(n_samples, 1)
     # generate a batch of fake samples
     X_fake_hr, _ = Generator.generateFakeSamples(g_model, X_real_lr, 1)
 
@@ -124,12 +107,16 @@ def summarize_performance(step, g_model, dataset, n_samples=3):
     filename2 = 'model_%06d.h5' % (step + 1)
     g_model.save(filename2)
     print('>Saved: %s and %s' % (filename1, filename2))
+    dataset = DataR.DatasetRetrieval()
+    dataset = dataset.retrieveImages() # first half is orig images, 2nd half is pixelated images
+
 
 """
 # Start function allows for GAN Network to be created.  Creates Discriminator,
 # Generator, and GAN Network which combines both.
 """
 def start():
+    global dataset
     # THIS IS THE DATA THAT IS RETRIEVED IN DATASET
     dataset = DataR.DatasetRetrieval()
     dataset = dataset.retrieveImages() # first half is orig images, 2nd half is pixelated images
@@ -158,13 +145,13 @@ def start():
     # Train Discriminator...
     #
     #####################################
-    bat_per_epo = int(len(train_hr) / n_batches)
+    bat_per_epo = int(len(train_hr) / 1)
     # Calculates total iterations needed based on epochs (100 epochs)
-    n_steps = bat_per_epo * 100
+    n_steps = bat_per_epo * 1000 #100,000 iterations...
     # iterate through each epoch through steps
     for i in range(n_steps):
         # retrieve real samples
-        X_real_hr, X_real_lr,real_y1= generate_real_samples(dataset, n_batches, n_patch)
+        X_real_hr, X_real_lr,real_y1= generate_real_samples(n_batches, n_patch)
         # generate fake images
         X_fakeB,fake_y = Generator.generateFakeSamples(gen_model, X_real_lr, n_patch,)
 
@@ -182,5 +169,5 @@ def start():
         # Loss functions printed out
         print('>%d, dreal[%.4f], dfake[%.4f], g[%.4f]' % (i + 1, d_loss_real, d_loss_fake,g_loss))
         # save data after epoch
-        if (i + 1) % (5) == 0:
-            summarize_performance(i, gen_model, dataset)
+        if (i + 1) % (200) == 0:
+            summarize_performance(i, gen_model)

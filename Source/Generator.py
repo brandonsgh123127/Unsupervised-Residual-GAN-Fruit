@@ -20,8 +20,8 @@ ops.reset_default_graph()
 
 
 # Looks like X predicts values over 1, under -1
-def generateFakeSamples(g_model, samples, patch_shape):
-    X = g_model.predict(samples)
+def generateFakeSamples(g_model,sample, patch_shape):
+    X = g_model.predict(sample)
     Y = np.zeros((len(X), patch_shape, patch_shape, 1))
     return X,Y
 
@@ -48,7 +48,6 @@ class Generator(object):
         init = RandomNormal(stddev=0.02)
         g_init = RandomNormal(mean=1.0,stddev=0.2)
         in_image = Input(shape=self.image_shape)
-        print(self.image_shape," before generate")
         # ENCODE PROCESS FOR GENERATOR
 
         g0 = Conv2D(8,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(in_image)
@@ -57,15 +56,15 @@ class Generator(object):
 
         # B residual blocks  --  FAST FORWARDING to DEEPER LAYER
         for i in range(16):
-            g1 = Conv2D(8, (3, 3), (1, 1), padding='same', kernel_initializer=init, bias_initializer=None)(g0)
+            g1 = Conv2D(12, (3, 3), (1, 1), padding='same', kernel_initializer=init, bias_initializer=None)(g0)
             g1 = BatchNormalization(gamma_initializer=g_init)(g1)
             g1 = Activation('relu')(g1)
-            g1 = Conv2D(8, (3, 3), (1, 1), padding='same', kernel_initializer=init, bias_initializer=None)(g1)
+            g1 = Conv2D(12, (3, 3), (1, 1), padding='same', kernel_initializer=init, bias_initializer=None)(g1)
             g1 = BatchNormalization(gamma_initializer=g_init)(g1)
             g1 = Concatenate()([g0, g1])
             g0 = g1
         # 8 x 8 x 8
-        g0 = Conv2D(8,(3,3),strides=(1,1),padding='same',kernel_initializer=init)(g0)
+        g0 = Conv2D(12,(3,3),strides=(1,1),padding='same',kernel_initializer=init)(g0)
         g0 = BatchNormalization()(g0, training=True)
         g0 = Dropout(0.5)(g0, training=True)
         g0 = Concatenate()([g0,tmp])
@@ -83,7 +82,6 @@ class Generator(object):
         # changes channels
         g1= Conv2D(3, (3, 3), strides=(1, 1), padding='same', kernel_initializer=init)(g0)
         out_image = Activation('tanh')(g1)
-        print(out_image.shape," boom")
 
         model = Model(in_image,out_image)
         #model = Model(inputs=[in_image], outputs=[g1])
