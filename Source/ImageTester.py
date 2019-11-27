@@ -1,8 +1,8 @@
-import Source.DatasetRetrieval as DataR
-import Source.ImageML as ML
+
+import ImageML
+
 
 def main():
-    ImageProcess = DataR.DatasetRetrieval()
-    ImageProcess.retrieveImages()
+    ImageML.start()
 
 main()

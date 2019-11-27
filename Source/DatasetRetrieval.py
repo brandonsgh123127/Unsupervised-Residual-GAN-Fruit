@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from keras.preprocessing.image import img_to_array
-
-import Source.Generator as generator
+import Generator as generator
 import os
 import cv2 #USED FOR EDGE DETECTION IN IMAGES
 
@@ -21,7 +20,7 @@ class DatasetRetrieval:
 
     # Used to initialize the class/Object when created
     def __init__(self):
-        self.testSize = 3000
+        self.testSize = 200# CHANGE LATER
         self.compArray=np.zeros(())
         self.pixArray = np.zeros(()) # STORES 12x12 IMAGES
         self.imArray=np.zeros((self.testSize,1))
@@ -32,19 +31,23 @@ class DatasetRetrieval:
         self.edgePixArray=self.edgePixArray.astype(np.ndarray)
         self.origArray = np.zeros(()) # STORES 100 x 100 IMAGES
         self.origArray=self.origArray.astype(np.ndarray)
+        self.src_images=[]
+        self.tar_images=[]
 
     """
     Used to retrieve a random set of images in dataset...
     """
     def retrieveImages(self):
         # Reads file named testPhotos, which points to each photo name
-        with open(os.getcwd()[:-7]+'\\FileNames\\fruitNames.txt','r')as f:
+        with open(os.getcwd()+'\\FileNames\\fruitNames.txt','r',encoding='utf8',newline='\r\n')as f:
             content = f.readlines()
             # Retrieve random number of objects in dataset to train model...
             for item in range(0,self.testSize):
                 rand = np.random.randint(0,high=28587)
-                self.imArray[item]= str(content[rand][:-1])  #imArray contains full quality image set locations
-            self.drawImageSample(100,'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images')
+                self.imArray[item]= ''.join(str(content[rand][0:-5]).strip('\r\n') + 'jpg')
+                print(self.imArray[item],"fdjkjk")
+                #self.imArray[item]= str(content[rand].strip('\\'))  #imArray contains full quality image set locations
+            return self.drawImageSample(self.testSize,'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Semi-Supervised-Learning\\BasicFruit Images\\BasicFruit Images')
 
 
     ################################
@@ -58,73 +61,62 @@ class DatasetRetrieval:
         for item in range(0,sample_size):
 
             """                 PLEASE CHANGE LINK TO LOCATION OF FRUIT                            """
-            img = cv2.imread(location + '\\%s' % ' '.join(        #'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Fruit-Images\\Fruit-Images-Dataset-master\\BasicFruit Images\\%s' 'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images\\%s
-                map(str, self.imArray[item])))
+            img = cv2.imread(location + '\\%s' % ' '.join(self.imArray[item]))
             print(self.imArray[item])
             """
             Pixelate image given cv2's resize and interpolation...
             """
-            width, height, _ = img.shape
-            edges = cv2.Canny(img, width, height)  # CREATES AN EDGE DETECTION IMAGE
-            w, h = (12, 12)  # New width/height of image...
+            """
+            Just in case string gets cut off of file location, try to add 'g' to end
+            """
+            try:
+                width, height, _ = img.shape
+            except:
+                tmp = str(self.imArray[item])
+                tmp = tmp.strip('[]').strip('\'').rstrip('g')
+                tmp+='g'
+                print(tmp)
+                img = cv2.imread(location + '\\%s' % ''.join(
+                    tmp))
+                width, height, _ = img.shape
+
+
+            w, h = (32, 32)  # New width/height of image...
             #Creates pixelated photos using Inter-Linear interpolation
             temp = cv2.resize(img, (w, h), interpolation=cv2.INTER_BITS)
-            output = cv2.resize(temp, (width, height), interpolation=cv2.INTER_AREA)
-            temp2 = cv2.Canny(temp, w, h)
-            """
-            # We need to save this data now to testLabeledData folder for use in Semi-Supervised Learning
-            """
-           # cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\ORIG_%s' % ' '.join(
-            #    map(str, self.imArray[item])),img)
-            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\EDGES_%s' % ' '.join(
-            #    map(str, self.imArray[item])),edges)
-            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIXEDGE_%s' % ' '.join(
-            #    map(str, self.imArray[item])),temp2)
-            #cv2.imwrite(os.getcwd()[:-7]+'\\TestLabeledData\\PIX_%s' % ' '.join(
-           #     map(str, self.imArray[item])),output)
             """
             Matplotlib plot data for user to see
             """
-            #fig = plt.figure(figsize=(12,12))
-            #fig.add_subplot(2, 2, 1).set(xlabel='pixelated'),\
-            #plt.imshow(output, )
-            self.addPixArray(output)
-            # fig.add_subplot(2, 2, 2).set(xlabel='original'), plt.imshow(img, )
+            self.addPixArray(temp)
             self.addOrigArray(img)
             self.origData = img_to_array(img)
-            self.pixData = img_to_array(output)
-            #fig.add_subplot(2, 2, 3).set(xlabel='pix edge'), plt.imshow(temp2,cmap='gray' )
-            #self.addEdgePixArray(temp2)
-            #fig.add_subplot(2, 2, 4).set(xlabel='orig edge'), plt.imshow(edges,cmap='gray' )
-            #self.addEdgeArray(edges)
+            self.pixData = img_to_array(temp)
+
             orig_img, pix_img = self.origData[:, :sample_size], self.pixData[:, :sample_size]
             src_list.append(orig_img)
             tar_list.append(pix_img)
-            #plt.show()
-            #cv2.waitKey(0)
-            #print(self.edgeArray.size)
         """
         In order to use for 2 variables, save data to numpy file
         """
-        [self.src_images,self.tar_images] = [np.asarray(src_list), np.asarray(tar_list)]
+        self.src_images,self.tar_images = np.asarray(src_list), np.asarray(tar_list)
         np.savez_compressed("fruits.npz",self.src_images,self.tar_images)
         print("Saved to 'fruits.npz'!!")
         self.src_images,self.tar_images= self.loadData("fruits.npz")
         print(self.src_images[50][50][50][1])
-
-
+        return np.asarray(self.src_images),np.asarray(self.tar_images)#,np.ones((sample_size, 1, 1, 1))
 
 
     # clears folder where test data will go...
     def clearFolder(self):
         # Iterates through files in test labeled data
-        for f in os.listdir(os.getcwd()[:-7]+'\\TestLabeledData\\'):
-            file_path = os.path.join(os.getcwd()[:-7]+'\\TestLabeledData\\', f)
+        for f in os.listdir(os.getcwd()+'\\TestLabeledData\\'):
+            file_path = os.path.join(os.getcwd()+'\\TestLabeledData\\', f)
             try:
                 if os.path.isfile(file_path):
                     os.unlink(file_path)
             except Exception as e:
                 print(e)
+
     """
     Getters and setters for above arrays...
     """
@@ -152,10 +144,10 @@ class DatasetRetrieval:
         print("Added edge photo")
 
 
-
-
-
-
+    """
+    # Loads image array stored in 'fruits.npz' created prior, and 'normalizes' pixel values from [-1.,1].
+    #
+    """
     def loadData(self,filename):
         data = np.load(filename)
         self.src_images, self.tar_images = data['arr_0'], data['arr_1']
@@ -171,8 +163,23 @@ class DatasetRetrieval:
             plt.axis('off')
             plt.imshow(self.tar_images[i].astype('uint8'))
         plt.show()
+        self.normalize()
+        return [self.src_images,self.tar_images]
+
+    """
+    # Converts from [0,255] to [-1.,1]
+    """
+    def normalize(self):
         self.src_images = (self.src_images - 127.5) / 127.5
         self.tar_images = (self.tar_images - 127.5) / 127.5
-        return [self.src_images,self.tar_images]
+
+    """
+    # Converts from [-1.,1] to [0,255]
+    """
+    def denormalize(self):
+        self.src_images = (self.src_images +1) * 127.5
+        self.tar_images = (self.tar_images +1) * 127.5
+
+
     """ 
 """
