@@ -23,7 +23,6 @@ class Discriminator(object):
     #Initialize image shape
     def __init__(self,image_shape):
         self.image_shape = image_shape
-
         # Creating a CNN using multiple layers....
     def define_discriminator(self):
         # initialize weight
@@ -32,10 +31,6 @@ class Discriminator(object):
         init = RandomNormal(stddev=0.2)
         in_src_image = Input(shape=self.image_shape)
         print("descrim shape int ", self.image_shape)
-        # target image
-        #in_target_image = Input(shape=self.image_shape)
-        # place both source and target images in one
-       # merged_images = Concatenate()([in_src_image, in_target_image])
         """
         CONVOLUTIONAL NETWORK FOR DISCRIMINATOR!!!   
         """
@@ -98,5 +93,3 @@ class Discriminator(object):
         model.compile(loss='binary_crossentropy', optimizer=opt, metrics=['accuracy'])
         #discriminator_model = Model(inputs=in_src_image, outputs=model)
         return model
-
-

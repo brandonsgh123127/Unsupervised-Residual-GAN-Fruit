@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from keras.preprocessing.image import img_to_array
-import Generator as generator
+from tensorflow.keras.preprocessing.image import img_to_array
+import Source.Generator as generator
 import os
 import cv2 #USED FOR EDGE DETECTION IN IMAGES
 
@@ -47,13 +47,11 @@ class DatasetRetrieval:
                 self.imArray[item]= ''.join(str(content[rand][0:-5]).strip('\r\n') + 'jpg')
                 print(self.imArray[item],"fdjkjk")
                 #self.imArray[item]= str(content[rand].strip('\\'))  #imArray contains full quality image set locations
-            return self.drawImageSample(self.testSize,'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Semi-Supervised-Learning\\BasicFruit Images\\BasicFruit Images')
+            return self.drawImageSample(self.testSize,'C:\\Users\\spada\\OneDrive\\Documents\\CS368\\datasets\\BasicFruit Images')
 
-
-    ################################
-    # Draw using matplotlib of 2 of same images
+    """
     # Will be used for comparisons....
-    ################################
+    """
     def drawImageSample(self,sample_size,location):
         self.clearFolder()  # Calls function that clears folder for new data
         src_list, tar_list = list(), list()
@@ -62,6 +60,8 @@ class DatasetRetrieval:
 
             """                 PLEASE CHANGE LINK TO LOCATION OF FRUIT                            """
             img = cv2.imread(location + '\\%s' % ' '.join(self.imArray[item]))
+
+
             print(self.imArray[item])
             """
             Pixelate image given cv2's resize and interpolation...
@@ -79,7 +79,8 @@ class DatasetRetrieval:
                 img = cv2.imread(location + '\\%s' % ''.join(
                     tmp))
                 width, height, _ = img.shape
-
+            img = img.astype('uint8')
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
             w, h = (32, 32)  # New width/height of image...
             #Creates pixelated photos using Inter-Linear interpolation
@@ -152,7 +153,7 @@ class DatasetRetrieval:
         data = np.load(filename)
         self.src_images, self.tar_images = data['arr_0'], data['arr_1']
         print('Loaded: ', self.src_images.shape, self.tar_images.shape)
-        n_samples = 3
+        n_samples = 10
         for i in range(n_samples):
             plt.subplot(2, n_samples, 1 + i)
             plt.axis('off')
@@ -163,7 +164,7 @@ class DatasetRetrieval:
             plt.axis('off')
             plt.imshow(self.tar_images[i].astype('uint8'))
         plt.show()
-        self.normalize()
+        #self.normalize()
         return [self.src_images,self.tar_images]
 
     """

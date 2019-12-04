@@ -154,10 +154,6 @@ def start():
         X_real_hr, X_real_lr,real_y1= generate_real_samples(n_batches, n_patch)
         # generate fake images
         X_fakeB,fake_y = Generator.generateFakeSamples(gen_model, X_real_lr, n_patch,)
-
-        #X_real_hr = (X_real_hr + 1) / 2.0
-        #X_real_lr = (X_real_lr + 1) / 2.0
-        #X_fakeB = (X_fakeB + 1) / 2.0
         # Loss function of first set of real images
         _,d_loss_real = descrim_model.train_on_batch(X_real_hr,real_y1)
 

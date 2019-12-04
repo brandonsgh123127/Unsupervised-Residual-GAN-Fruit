@@ -49,12 +49,10 @@ class Generator(object):
         g_init = RandomNormal(mean=1.0,stddev=0.2)
         in_image = Input(shape=self.image_shape)
         # ENCODE PROCESS FOR GENERATOR
-
         g0 = Conv2D(8,(4,4),strides=(2,2),padding='same',kernel_initializer=init)(in_image)
         g0 = LeakyReLU(alpha=0.2)(g0)
         tmp = g0
-
-        # B residual blocks  --  FAST FORWARDING to DEEPER LAYER
+        # Residual blocks
         for i in range(16):
             g1 = Conv2D(12, (3, 3), (1, 1), padding='same', kernel_initializer=init, bias_initializer=None)(g0)
             g1 = BatchNormalization(gamma_initializer=g_init)(g1)
