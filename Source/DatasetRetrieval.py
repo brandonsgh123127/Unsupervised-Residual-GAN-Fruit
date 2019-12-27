@@ -47,7 +47,7 @@ class DatasetRetrieval:
                 self.imArray[item]= ''.join(str(content[rand][0:-5]).strip('\r\n') + 'jpg')
                 print(self.imArray[item],"fdjkjk")
                 #self.imArray[item]= str(content[rand].strip('\\'))  #imArray contains full quality image set locations
-            return self.drawImageSample(self.testSize,'E:\\Users\\i-pod\\Desktop\\Projects_CS\\Python\\Semi-Supervised-Learning\\BasicFruit Images\\BasicFruit Images')
+            return self.drawImageSample(self.testSize,'INSERT PATH TO BASICFRUIT IMAGES HERE...')
 
 
     ################################
