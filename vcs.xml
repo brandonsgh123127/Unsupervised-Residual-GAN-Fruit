@@ -6,7 +6,12 @@
           <option name="url" value="http://github.com" />
           <option name="userName" value="brandonsgh123127@gmail.com" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/brandonsgh123127/OpenGLCam.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
+    <option name="cloneParentDir" value="C:\Users\spada\OneDrive\Documents\CS391" />
   </component>
 </application>
