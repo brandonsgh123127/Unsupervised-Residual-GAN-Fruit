@@ -1,8 +1,10 @@
 <application>
   <component name="MaterialThemeConfig">
+    <option name="isContrastMode" value="true" />
     <option name="isHighContrast" value="true" />
     <option name="isWizardShown" value="true" />
-    <option name="selectedTheme" value="DARKER" />
+    <option name="pristineConfig" value="false" />
+    <option name="selectedTheme" value="DEEPOCEAN" />
     <option name="userId" value="5af464ec:16ea843b08a:-8000" />
     <option name="version" value="4.5.2" />
   </component>
